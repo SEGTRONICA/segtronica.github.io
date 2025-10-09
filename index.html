@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIOP - Gestão Inteligente de Operações da Segtrônica</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+    <div class="top-logo">
+        <img src="logo.png" alt="Logo da Empresa" class="company-logo">
+    </div>
+    <div class="container">
+        <header>
+            <h1>GIOP - Gestão Inteligente de Operações da Segtrônica</h1>
+            <p>Selecione o painel que deseja acessar</p>
+        </header>
+        
+        <main class="panels-grid">
+            <!-- Painel 1 -->
+            <div class="panel-card" onclick="openPanel('192.168.1.210:8504')">
+                <div class="panel-icon">⚙️</div>
+                <h3>GIOP - ORDENS DE SERVIÇO</h3>
+                <p>Dashboard de análises e métricas de ordens de serviço</p>
+                <span class="panel-ip">192.168.1.210:8504</span>
+            </div>
+            
+            <!-- Painel 2 -->
+            <div class="panel-card" onclick="openPanel('192.168.1.210:8506')">
+                <div class="panel-icon">📐</div>
+                <h3>GIOP - PROJETOS</h3>
+                <p>Gerenciamento e visualização de projetos</p>
+                <span class="panel-ip">192.168.1.210:8506</span>
+            </div>
+            
+            <!-- Painel 3 -->
+            <div class="panel-card" onclick="openPanel('192.168.1.210:8502')">
+                <div class="panel-icon">🧾</div>
+                <h3>GIOP - NOTA FISCAL</h3>
+                <p>Aprovação de notas fiscais</p>
+                <span class="panel-ip">192.168.1.210:8502</span>
+            </div>
+            
+            <!-- Painel 4 -->
+            <div class="panel-card" onclick="openPanel('192.168.1.210:8503')">
+                <div class="panel-icon">🆑</div>
+                <h3>GIOP - CLARO</h3>
+                <p>Análise e acompanhamento de projetos Claro</p>
+                <span class="panel-ip">192.168.1.210:8503</span>
+            </div>
+    
+        </main>
+        
+        <footer>
+            <p>© 2025 GIOP - Gestão Inteligente de Operações da Segtrônica - Acesso rápido aos seus dashboards</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
