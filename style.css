@@ -1,188 +1,234 @@
+/* Reset e Variáveis de Cores Corporativas - Segtrônica */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --bg-main: #0A0A0C;         /* Preto profundo de alta tecnologia */
+    --bg-card: #141416;         /* Grafite escuro para os cards */
+    --bg-card-hover: #1D1D20;   /* Destaque sutil ao passar o mouse */
+    --border-color: #26262B;    /* Bordas finas e discretas */
+    
+    /* Cores extraídas da Logo */
+    --brand-yellow: #F4BA41;    /* O Amarelo/Ouro exato da Segtrônica */
+    --brand-yellow-glow: rgba(244, 186, 65, 0.15); 
+    
+    --text-primary: #FFFFFF;    /* Branco puro para títulos */
+    --text-secondary: #A1A1AA;  /* Cinza claro para descrições */
+    --font-stack: 'Inter', sans-serif;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #555103 0%, #010002 100%);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-stack);
     min-height: 100vh;
-    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
 }
 
-.container {
+.app-layout {
+    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
 
-header {
-    text-align: center;
-    color: white;
+/* Header Corporativo */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
 }
 
-header h1 {
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    transform: translateY(-70px); /* Sobe o título */
-    /* ou use margin-top: -20px; como alternativa */
-}
-
-header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-}
-
-.panels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.panel-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 2px solid transparent;
-}
-
-.panel-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    border-color: #667eea;
-}
-
-.panel-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.panel-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.panel-card p {
-    color: #666;
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.panel-ip {
-    display: inline-block;
-    background: #f0f0f0;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    color: #555;
-    font-family: 'Courier New', monospace;
-}
-
-footer {
-    text-align: center;
-    color: white;
-    opacity: 0.8;
-    margin-top: 40px;
-}
-
-/* Logo fixo no canto superior esquerdo */
-.top-logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
 }
 
 .company-logo {
-    height: 100px;
+    height: 55px; /* Aumentado levemente para destacar o escudo da logo */
     width: auto;
-    display: block;
-    transition: transform 0.3s ease;
+    object-fit: contain;
 }
 
-.company-logo:hover {
-    transform: scale(1.1);
+.brand-divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--border-color);
 }
 
-/* Ajustar o container para não sobrepor o logo */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    padding-top: 100px; /* Espaço extra para o logo */
+.system-badge {
+    background-color: rgba(244, 186, 65, 0.1);
+    color: var(--brand-yellow);
+    border: 1px solid rgba(244, 186, 65, 0.2);
+    padding: 0.35rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 
-/* Responsividade para mobile */
-@media (max-width: 768px) {
-    .top-logo {
-        top: 10px;
-        left: 10px;
-        padding: 8px;
-    }
-    
-    .company-logo {
-        height: 35px;
-    }
-    
-    .container {
-        padding-top: 80px;
-    }
+.header-title-area h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.header-title-area p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+}
+
+/* Grid de Cards */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Estilização do Card Executivo */
+.panel-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.panel-card:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--brand-yellow); /* Borda acende em amarelo */
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Wrapper do Ícone Vetorial */
+.card-icon-wrapper {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.panel-card:hover .card-icon-wrapper {
+    background-color: var(--brand-yellow-glow);
+    border-color: rgba(244, 186, 65, 0.4);
+}
+
+.card-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--text-secondary);
+    transition: color 0.25s ease;
+}
+
+.panel-card:hover .card-icon {
+    color: var(--brand-yellow); /* Ícone fica amarelo no hover */
+}
+
+/* Conteúdo de Texto */
+.card-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Rodapé do Card (IP e Seta) */
+.card-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-ip {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.mini-icon {
+    width: 12px;
+    height: 12px;
+    opacity: 0.5;
+}
+
+.arrow-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.25s ease;
+}
+
+.panel-card:hover .arrow-icon {
+    opacity: 1;
+    color: var(--brand-yellow);
+    transform: translate(0, 0);
+}
+
+/* Footer Geral */
+.main-footer {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.main-footer p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .container {
-        padding: 15px;
+    .main-header {
+        text-align: center;
+        align-items: center;
     }
-    
-    header h1 {
-        font-size: 2rem;
+    .header-brand {
+        flex-direction: column;
+        gap: 0.8rem;
     }
-    
-    .panels-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .panel-card {
-        padding: 20px;
-    }
-}
-
-/* Animação de loading */
-.loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-.loading::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 2px solid #667eea;
-    border-radius: 50%;
-    border-top-color: transparent;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    .brand-divider {
+        display: none;
     }
 }
