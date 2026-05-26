@@ -3,76 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIOP - Gestão Inteligente de Operações da Segtrônica</title>
+    <title>GIOP - Gestão Inteligente de Operações</title>
+    <!-- Fonte Inter para um visual limpo e corporativo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Scripts dos Ícones Modernos (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
-    <div class="top-logo">
-        <img src="logo.png" alt="Logo da Empresa" class="company-logo">
-    </div>
-    <div class="container">
-        <header>
-            <h1>GIOP - Gestão Inteligente de Operações da Segtrônica</h1>
-            <p>Selecione o painel que deseja acessar</p>
-        </header>
-        
-        <main class="panels-grid">
 
+    <div class="app-layout">
+        <header class="main-header">
+            <div class="header-brand">
+                <img src="logo.png" alt="Segtrônica" class="company-logo">
+                <div class="brand-divider"></div>
+                <span class="system-badge">GIOP</span>
+            </div>
+            <div class="header-title-area">
+                <h1>Gestão Inteligente de Operações</h1>
+                <p>Painel Executivo de Aplicações Internas</p>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
             <!-- PAINEL 1 - JARVIS -->
             <div class="panel-card" onclick="openPanel('192.168.1.210:8501')">
-                <div class="panel-icon">🤖</div>
-                <h3>GIOP - JARVIS</h3>
-                <p>Assistente Inteligente de Operações</p>
-                <span class="panel-ip">192.168.1.210:8501</span>
+                <div class="card-icon-wrapper">
+                    <i data-lucide="cpu" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>JARVIS</h3>
+                    <p>Assistente Inteligente de Operações</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8501</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
             </div>
 
-            <!-- Painel 2 -->
+            <!-- Painel 2 - ORDEM DE SERVIÇO -->
             <div class="panel-card" onclick="openPanel('192.168.1.210:8504')">
-                <div class="panel-icon">⚙️</div>
-                <h3>GIOP - ORDENS DE SERVIÇO</h3>
-                <p>Dashboard de análises e métricas de ordens de serviço</p>
-                <span class="panel-ip">192.168.1.210:8504</span>
+                <div class="card-icon-wrapper">
+                    <i data-lucide="bar-chart-3" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Ordens de Serviço</h3>
+                    <p>Dashboard de análises e métricas de O.S.</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8504</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
             </div>
-            
-            <!-- Painel 3 -->
+
+            <!-- Painel 3 - INSTALAÇÕES -->
             <div class="panel-card" onclick="openPanel('192.168.1.210:8506')">
-                <div class="panel-icon">📐</div>
-                <h3>GIOP - PROJETOS</h3>
-                <p>Gerenciamento e visualização de projetos</p>
-                <span class="panel-ip">192.168.1.210:8506</span>
+                <div class="card-icon-wrapper">
+                    <i data-lucide="layers" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Instalações</h3>
+                    <p>Gerenciamento e acompanhamento de instalações</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8506</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
             </div>
-            
-            <!-- Painel 4 -->
+
+            <!-- Painel 4 - NOTA FISCAL -->
             <div class="panel-card" onclick="openPanel('192.168.1.210:8502')">
-                <div class="panel-icon">🧾</div>
-                <h3>GIOP - NOTA FISCAL</h3>
-                <p>Aprovação de notas fiscais</p>
-                <span class="panel-ip">192.168.1.210:8502</span>
+                <div class="card-icon-wrapper">
+                    <i data-lucide="file-check" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Nota Fiscal</h3>
+                    <p>Portal de aprovação de notas fiscais</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8502</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
             </div>
-            
-            <!-- Painel 5 -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8503')">
-                <div class="panel-icon">🆑</div>
-                <h3>GIOP - CLARO</h3>
-                <p>Análise e acompanhamento de projetos Claro</p>
-                <span class="panel-ip">192.168.1.210:8503</span>
-            </div>
-            <!-- Painel 6 -->
+
+            <!-- Painel 5 - FINANCEIRO -->
             <div class="panel-card" onclick="openPanel('192.168.1.211:8501')">
-                <div class="panel-icon">💵</div>
-                <h3>GIOP - FINANCEIRO</h3>
-                <p>Análise Financeira de projetos</p>
-                <span class="panel-ip">192.168.1.211:8501</span>
+                <div class="card-icon-wrapper">
+                    <i data-lucide="wallet" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Financeiro</h3>
+                    <p>Análise financeira e viabilidade de projetos</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.211:8501</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
             </div>
-    
         </main>
-        
-        <footer>
-            <p>© 2025 GIOP - Gestão Inteligente de Operações da Segtrônica - Acesso rápido aos seus dashboards</p>
+
+        <footer class="main-footer">
+            <p>© 2026 Segtrônica • Sistema de Gestão Inteligente de Operações • Ambiente Interno Seguro</p>
         </footer>
     </div>
-    
+
+    <!-- Inicializa os ícones do Lucide -->
+    <script>
+      lucide.createIcons();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
