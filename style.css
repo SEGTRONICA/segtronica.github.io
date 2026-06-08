@@ -232,3 +232,23 @@ body {
         display: none;
     }
 }
+
+/* ── Central de Alertas ─────────────────────────── */
+.alert-panel {
+    border: 1.5px solid #dc2626;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(220, 38, 38, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.alert-panel:hover {
+    border-color: #ef4444;
+}
