@@ -4,14 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIOP - Gestão Inteligente de Operações</title>
-    <!-- Fonte Inter para um visual limpo e corporativo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Scripts dos Ícones Modernos (Lucide) -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Correção do grid para acomodar 7 cards -->
+    <style>
+        .dashboard-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.25rem;
+        }
+
+        /* Centraliza o último card quando ele ficar sozinho na linha */
+        .dashboard-grid .panel-card:last-child:nth-child(4n - 3) {
+            grid-column: 2 / span 2;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .dashboard-grid .panel-card:last-child:nth-child(4n - 3) {
+                grid-column: unset;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -103,7 +136,8 @@
                     <i data-lucide="arrow-up-right" class="arrow-icon"></i>
                 </div>
             </div>
-            <!-- Painel ALERTAS -->
+
+            <!-- Painel 6 - ALERTAS -->
             <div class="panel-card alert-panel" onclick="openPanel('192.168.1.210:8505')">
                 <div class="card-icon-wrapper alert-icon-wrapper">
                     <i data-lucide="triangle-alert" class="card-icon alert-card-icon"></i>
@@ -121,28 +155,28 @@
                     <i data-lucide="arrow-up-right" class="arrow-icon alert-arrow"></i>
                 </div>
             </div>
+
+            <!-- Painel 7 - DOCUMENTAÇÃO -->
+            <div class="panel-card" onclick="openPanel('192.168.1.210:8507')">
+                <div class="card-icon-wrapper">
+                    <i data-lucide="book-open" class="card-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Documentação</h3>
+                    <p>Documentações e integrações dos técnicos</p>
+                </div>
+                <div class="card-footer">
+                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8507</span>
+                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                </div>
+            </div>
         </main>
 
         <footer class="main-footer">
             <p>© 2026 Segtrônica • Sistema de Gestão Inteligente de Operações • Ambiente Interno Seguro</p>
         </footer>
-        </div>
-        <!-- Painel DOCUMENTAÇÃO -->
-    <div class="panel-card" onclick="openPanel('192.168.1.210:8507')">
-        <div class="card-icon-wrapper">
-            <i data-lucide="book-open" class="card-icon"></i>
-        </div>
-        <div class="card-content">
-            <h3>Documentação</h3>
-            <p>Documentações e integrações dos técnicos</p>
-        </div>
-        <div class="card-footer">
-            <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8507</span>
-            <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-        </div>
     </div>
 
-    <!-- Inicializa os ícones do Lucide -->
     <script>
       lucide.createIcons();
     </script>
