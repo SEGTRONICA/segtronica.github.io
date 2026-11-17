@@ -1,185 +1,1497 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIOP - Gestão Inteligente de Operações</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d10">
+<title>GIOP | Segtrônica</title>
 
-    <!-- Correção do grid para acomodar 7 cards -->
-    <style>
-        .dashboard-grid {
-            display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important;
-            gap: 1.25rem;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 
-        /* Centraliza o último card quando ele ficar sozinho na linha */
-        .dashboard-grid .panel-card:last-child:nth-child(4n - 3) {
-            grid-column: 2 / span 2;
-        }
+<style>
+:root {
+    --bg: #0b0d10;
+    --sidebar: #0e1014;
+    --surface: #13171d;
+    --surface-hover: #191e25;
+    --surface-soft: #171b21;
+    --border: rgba(255,255,255,.075);
+    --gold: #eab64d;
+    --gold-light: #f5ce7b;
+    --gold-soft: rgba(234,182,77,.10);
+    --text: #f3f4f6;
+    --muted: #939ba8;
+    --muted-dark: #606977;
+    --green: #45c995;
+    --red: #f07171;
+    --font: 'Inter', sans-serif;
+}
 
-        @media (max-width: 1200px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-            }
-            .dashboard-grid .panel-card:last-child:nth-child(4n - 3) {
-                grid-column: unset;
-            }
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        @media (max-width: 800px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-        }
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+}
 
-        @media (max-width: 520px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 27px 18px 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 7px 29px;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand-symbol {
+    width: 39px;
+    height: 39px;
+    background: linear-gradient(145deg,#f4cb78,#d59b35);
+    color: #17130b;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 5px 20px rgba(234,182,77,.12);
+}
+
+.brand-symbol svg {
+    width: 23px;
+    height: 23px;
+}
+
+.brand-name {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.brand-name span {
+    color: var(--gold);
+}
+
+.brand-caption {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1.7px;
+}
+
+.nav-label {
+    padding: 27px 10px 12px;
+    color: var(--muted-dark);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    width: 100%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 11px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    transition: .2s;
+}
+
+.nav-item svg {
+    width: 17px;
+    height: 17px;
+}
+
+.nav-item:hover {
+    background: var(--surface);
+    color: var(--text);
+}
+
+.nav-item.active {
+    color: var(--gold-light);
+    background: var(--gold-soft);
+    border-color: rgba(234,182,77,.12);
+}
+
+.nav-item.active svg {
+    color: var(--gold);
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.sidebar-info {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 14px;
+    margin-bottom: 17px;
+}
+
+.sidebar-info-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.sidebar-info-top svg {
+    color: var(--gold);
+    width: 15px;
+}
+
+.sidebar-info p {
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.7;
+    margin-top: 8px;
+}
+
+.sidebar-footer {
+    border-top: 1px solid var(--border);
+    padding: 16px 6px 0;
+    color: var(--muted-dark);
+    font-size: 9px;
+    line-height: 1.8;
+}
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    height: 75px;
+    padding: 0 43px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(11,13,16,.85);
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.breadcrumb strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.breadcrumb svg {
+    width: 13px;
+    color: var(--muted-dark);
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.environment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+.environment-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+}
+
+.topbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+}
+
+.date-display {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* CONTENT */
+
+.content {
+    max-width: 1420px;
+    padding: 40px 43px 35px;
+    margin: auto;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 205px;
+    padding: 33px 37px;
+    border: 1px solid rgba(234,182,77,.15);
+    border-radius: 13px;
+    background:
+        radial-gradient(ellipse at 90% 10%, rgba(234,182,77,.12), transparent 40%),
+        linear-gradient(115deg,#171b20,#12161b);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero::after {
+    content: "G";
+    position: absolute;
+    right: 8%;
+    top: -88px;
+    font-size: 340px;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(234,182,77,.025);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--gold);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.hero-eyebrow span {
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+}
+
+.hero h1 {
+    font-size: clamp(27px,3vw,37px);
+    letter-spacing: -1.6px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.hero h1 em {
+    color: var(--gold-light);
+    font-style: normal;
+}
+
+.hero p {
+    margin-top: 12px;
+    max-width: 520px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.hero-date {
+    z-index: 1;
+    position: relative;
+    text-align: right;
+    padding-right: 7px;
+}
+
+.hero-date-label {
+    color: var(--muted-dark);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.hero-date-value {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gold-light);
+}
+
+/* SECTION */
+
+.section {
+    margin-top: 39px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 19px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+}
+
+.section-description {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.application-count {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    padding: 7px 11px;
+    border-radius: 6px;
+    font-size: 9px;
+}
+
+/* SEARCH */
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 21px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 9px;
+    transition: .2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    color: var(--gold-light);
+    background: var(--gold-soft);
+    border-color: rgba(234,182,77,.2);
+}
+
+.search {
+    width: 215px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 11px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+}
+
+.search svg {
+    width: 14px;
+    color: var(--muted);
+}
+
+.search input {
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 10px;
+}
+
+.search input::placeholder {
+    color: var(--muted-dark);
+}
+
+/* APPLICATION GRID */
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 13px;
+}
+
+.app-card {
+    position: relative;
+    min-height: 188px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: .25s ease;
+    overflow: hidden;
+    animation: enter .45s both;
+}
+
+.app-card:hover {
+    background: var(--surface-hover);
+    border-color: rgba(234,182,77,.35);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+
+.app-card.hidden {
+    display: none;
+}
+
+.app-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: var(--gold-soft);
+    border: 1px solid rgba(234,182,77,.13);
+    color: var(--gold);
+    transition: .2s;
+}
+
+.app-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.app-card:hover .app-icon {
+    background: var(--gold);
+    color: #17130b;
+}
+
+.category {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted-dark);
+}
+
+.app-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 19px;
+    letter-spacing: -.2px;
+}
+
+.app-card p {
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.7;
+    margin-top: 7px;
+    max-width: 260px;
+}
+
+.app-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.access-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted-dark);
+    font-size: 9px;
+}
+
+.access-label svg {
+    width: 12px;
+    height: 12px;
+}
+
+.access-arrow {
+    width: 27px;
+    height: 27px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    transition: .2s;
+}
+
+.access-arrow svg {
+    width: 13px;
+    height: 13px;
+}
+
+.app-card:hover .access-arrow {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #17130b;
+}
+
+/* ALERT */
+
+.alert-card {
+    border-color: rgba(240,113,113,.17);
+}
+
+.alert-card .app-icon {
+    color: var(--red);
+    background: rgba(240,113,113,.09);
+    border-color: rgba(240,113,113,.16);
+}
+
+.alert-card:hover {
+    border-color: rgba(240,113,113,.4);
+}
+
+.alert-card:hover .app-icon {
+    background: var(--red);
+    color: white;
+}
+
+.alert-card .category {
+    color: #dc8989;
+}
+
+/* EMPTY */
+
+.empty {
+    display: none;
+    padding: 40px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.empty.show {
+    display: block;
+}
+
+/* BOTTOM */
+
+.bottom-panel {
+    margin-top: 35px;
+    padding: 17px 20px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: rgba(234,182,77,.035);
+    border: 1px solid rgba(234,182,77,.10);
+    border-radius: 9px;
+}
+
+.bottom-panel-icon {
+    color: var(--gold);
+}
+
+.bottom-panel-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.bottom-panel strong {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.bottom-panel p {
+    color: var(--muted);
+    font-size: 9px;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 37px;
+    padding: 19px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted-dark);
+    font-size: 9px;
+}
+
+.footer strong {
+    color: var(--gold);
+}
+
+/* ANIMATION */
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1150px) {
+    .content {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .topbar {
+        padding: 0 28px;
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:780px) {
+    .sidebar {
+        width: 205px;
+    }
+
+    .hero-date {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+    .app {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 14px 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+        padding: 0 3px 14px;
+        border-bottom: none;
+    }
+
+    .nav-label,
+    .sidebar-info,
+    .sidebar-footer {
+        display: none;
+    }
+
+    .nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-item {
+        width: auto;
+        white-space: nowrap;
+        padding: 9px 11px;
+        font-size: 9px;
+    }
+
+    .nav-item svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .topbar {
+        height: 55px;
+        padding: 0 18px;
+    }
+
+    .content {
+        padding: 25px 18px;
+    }
+
+    .hero {
+        min-height: 185px;
+        padding: 24px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .app-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .app-card {
+        min-height: 175px;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="app-layout">
-        <header class="main-header">
-            <div class="header-brand">
-                <img src="logo.png" alt="Segtrônica" class="company-logo">
-                <div class="brand-divider"></div>
-                <span class="system-badge">GIOP</span>
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <img src="logo.png" alt="Logo Segtrônica">
             </div>
-            <div class="header-title-area">
-                <h1>Gestão Inteligente de Operações</h1>
-                <p>Painel Executivo de Aplicações Internas</p>
+
+            <div>
+                <div class="brand-name">
+                    SEG<span>TRÔNICA</span>
+                </div>
             </div>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="nav">
+
+            <button class="nav-item active" data-filter="all">
+                <i data-lucide="layout-dashboard"></i>
+                Visão geral
+            </button>
+
+            <button class="nav-item" data-filter="operacoes">
+                <i data-lucide="activity"></i>
+                Operações
+            </button>
+
+            <button class="nav-item" data-filter="administrativo">
+                <i data-lucide="briefcase-business"></i>
+                Administrativo
+            </button>
+
+            <button class="nav-item" data-filter="financeiro">
+                <i data-lucide="wallet"></i>
+                Financeiro
+            </button>
+
+            <button class="nav-item" data-filter="documentacao">
+                <i data-lucide="book-open"></i>
+                Documentação
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-info">
+                <div class="sidebar-info-top">
+                    <i data-lucide="shield-check"></i>
+                    Ambiente corporativo
+                </div>
+
+                <p>
+                    Portal destinado ao acesso das plataformas
+                    internas da Segtrônica.
+                </p>
+            </div>
+
+            <div class="sidebar-footer">
+                GIOP · VERSÃO 2.0<br>
+                © <span class="year"></span> SEGTRÔNICA
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>GIOP</span>
+                <i data-lucide="chevron-right"></i>
+                <strong id="breadcrumbTitle">Visão geral</strong>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="environment">
+                    <span class="environment-dot"></span>
+                    REDE INTERNA
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="date-display" id="currentDate"></div>
+
+            </div>
+
         </header>
 
-        <main class="dashboard-grid">
-            <!-- PAINEL 1 - JARVIS -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8501')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="cpu" class="card-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>JARVIS</h3>
-                    <p>Assistente Inteligente de Operações</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8501</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
 
-            <!-- Painel 2 - ORDEM DE SERVIÇO -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8504')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="bar-chart-3" class="card-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Ordens de Serviço</h3>
-                    <p>Dashboard de análises e métricas de O.S.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8504</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
+        <!-- CONTENT -->
 
-            <!-- Painel 3 - INSTALAÇÕES -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8506')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="layers" class="card-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Instalações</h3>
-                    <p>Gerenciamento e acompanhamento de instalações</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8506</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
+        <div class="content">
 
-            <!-- Painel 4 - NOTA FISCAL -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8502')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="file-check" class="card-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Nota Fiscal</h3>
-                    <p>Portal de aprovação de notas fiscais</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8502</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
+            <!-- HERO -->
 
-            <!-- Painel 5 - FINANCEIRO -->
-            <div class="panel-card" onclick="openPanel('192.168.1.211:8501')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="wallet" class="card-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Financeiro</h3>
-                    <p>Análise financeira e viabilidade de projetos</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.211:8501</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
+            <section class="hero">
 
-            <!-- Painel 6 - ALERTAS -->
-            <div class="panel-card alert-panel" onclick="openPanel('192.168.1.210:8505')">
-                <div class="card-icon-wrapper alert-icon-wrapper">
-                    <i data-lucide="triangle-alert" class="card-icon alert-card-icon"></i>
-                    <span class="alert-live-badge"></span>
+                <div class="hero-content">
+
+                    <div class="hero-eyebrow">
+                        <span></span>
+                        GESTÃO INTELIGENTE DE OPERAÇÕES
+                    </div>
+
+                    <h1>
+                        Gestão conectada.<br>
+                        <em>Resultados integrados.</em>
+                    </h1>
+
+                    <p>
+                        Seu ambiente centralizado de gestão,
+                        inteligência e acompanhamento das operações
+                        da Segtrônica.
+                    </p>
+
                 </div>
-                <div class="card-content">
-                    <h3>Central de Alertas</h3>
-                    <p>Alertas de projetos e clientes</p>
+
+                <div class="hero-date">
+                    <div class="hero-date-label">
+                        AMBIENTE CORPORATIVO
+                    </div>
+                    <div class="hero-date-value" id="heroDate">
+                        Segtrônica
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <span class="panel-ip">
-                        <span class="pulse-dot"></span>
-                        192.168.1.210:8505
+
+            </section>
+
+
+            <!-- APPLICATIONS -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2 class="section-title">
+                            Central de aplicações
+                        </h2>
+
+                        <p class="section-description" id="sectionDescription">
+                            Todas as ferramentas corporativas em um único ambiente.
+                        </p>
+                    </div>
+
+                    <span class="application-count" id="appCount">
+                        06 APLICAÇÕES
                     </span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon alert-arrow"></i>
-                </div>
-            </div>
 
-            <!-- Painel 7 - DOCUMENTAÇÃO -->
-            <div class="panel-card" onclick="openPanel('192.168.1.210:8507')">
-                <div class="card-icon-wrapper">
-                    <i data-lucide="book-open" class="card-icon"></i>
                 </div>
-                <div class="card-content">
-                    <h3>Documentação</h3>
-                    <p>Documentações e integrações dos técnicos</p>
-                </div>
-                <div class="card-footer">
-                    <span class="panel-ip"><i data-lucide="terminal" class="mini-icon"></i> 192.168.1.210:8507</span>
-                    <i data-lucide="arrow-up-right" class="arrow-icon"></i>
-                </div>
-            </div>
-        </main>
 
-        <footer class="main-footer">
-            <p>© 2026 Segtrônica • Sistema de Gestão Inteligente de Operações • Ambiente Interno Seguro</p>
-        </footer>
-    </div>
 
-    <script>
-      lucide.createIcons();
-    </script>
-    <script src="script.js"></script>
+                <!-- FILTERS AND SEARCH -->
+
+                <div class="toolbar">
+
+                    <div class="filters">
+
+                        <button class="filter-btn active" data-filter="all">
+                            Todas
+                        </button>
+
+                        <button class="filter-btn" data-filter="operacoes">
+                            Operações
+                        </button>
+
+                        <button class="filter-btn" data-filter="administrativo">
+                            Administrativo
+                        </button>
+
+                        <button class="filter-btn" data-filter="financeiro">
+                            Financeiro
+                        </button>
+
+                        <button class="filter-btn" data-filter="documentacao">
+                            Documentação
+                        </button>
+
+                    </div>
+
+                    <div class="search">
+                        <i data-lucide="search"></i>
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Pesquisar aplicação..."
+                        >
+                    </div>
+
+                </div>
+
+
+                <!-- APPLICATION CARDS -->
+
+                <div class="app-grid" id="appGrid">
+
+                    <!-- OS -->
+
+                    <a
+                        class="app-card"
+                        href="http://192.168.1.210:8504"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="operacoes"
+                        data-search="ordens de serviço os dashboard métricas indicadores"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="chart-no-axes-combined"></i>
+                            </div>
+                            <span class="category">Operações</span>
+                        </div>
+
+                        <h3>Ordens de Serviço</h3>
+
+                        <p>
+                            Análise de indicadores, métricas
+                            e acompanhamento das ordens de serviço.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+
+                    <!-- INSTALAÇÕES -->
+
+                    <a
+                        class="app-card"
+                        href="http://192.168.1.210:8506"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="operacoes"
+                        data-search="instalações gerenciamento acompanhamento implantação projetos"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="layers-3"></i>
+                            </div>
+                            <span class="category">Operações</span>
+                        </div>
+
+                        <h3>Instalações</h3>
+
+                        <p>
+                            Gerenciamento e acompanhamento
+                            das atividades e projetos de instalação.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+
+                    <!-- ALERTAS -->
+
+                    <a
+                        class="app-card alert-card"
+                        href="http://192.168.1.210:8505"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="operacoes"
+                        data-search="alertas monitoramento notificações projetos clientes pendências"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="triangle-alert"></i>
+                            </div>
+                            <span class="category">Monitoramento</span>
+                        </div>
+
+                        <h3>Central de Alertas</h3>
+
+                        <p>
+                            Monitoramento de alertas, notificações
+                            e pendências de projetos e clientes.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+
+                    <!-- NOTA FISCAL -->
+
+                    <a
+                        class="app-card"
+                        href="http://192.168.1.210:8502"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="administrativo"
+                        data-search="nota fiscal nf aprovação documentos fiscais"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="file-check-2"></i>
+                            </div>
+                            <span class="category">Administrativo</span>
+                        </div>
+
+                        <h3>Nota Fiscal</h3>
+
+                        <p>
+                            Portal de recebimento, análise
+                            e aprovação de documentos fiscais.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+
+                    <!-- FINANCEIRO -->
+
+                    <a
+                        class="app-card"
+                        href="http://192.168.1.211:8501"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="financeiro"
+                        data-search="financeiro análise financeira viabilidade custos projetos"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="wallet"></i>
+                            </div>
+                            <span class="category">Financeiro</span>
+                        </div>
+
+                        <h3>Financeiro</h3>
+
+                        <p>
+                            Análises financeiras, indicadores
+                            e viabilidade econômica de projetos.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+
+                    <!-- DOCUMENTAÇÃO -->
+
+                    <a
+                        class="app-card"
+                        href="http://192.168.1.210:8507"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-category="documentacao"
+                        data-search="documentação documentos técnicos integrações procedimentos"
+                    >
+                        <div class="app-card-top">
+                            <div class="app-icon">
+                                <i data-lucide="book-open"></i>
+                            </div>
+                            <span class="category">Documentação</span>
+                        </div>
+
+                        <h3>Documentação</h3>
+
+                        <p>
+                            Documentações técnicas, procedimentos
+                            e integrações das equipes.
+                        </p>
+
+                        <div class="app-card-bottom">
+                            <span class="access-label">
+                                <i data-lucide="external-link"></i>
+                                Acessar plataforma
+                            </span>
+                            <span class="access-arrow">
+                                <i data-lucide="arrow-up-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                </div>
+
+
+                <div class="empty" id="emptyState">
+                    Nenhuma aplicação encontrada.
+                </div>
+
+            </section>
+
+
+            <!-- SECURITY INFO -->
+
+            <section class="bottom-panel">
+
+                <div class="bottom-panel-icon">
+                    <i data-lucide="shield-check"></i>
+                </div>
+
+                <div>
+                    <strong>Ambiente corporativo Segtrônica</strong>
+                    <p>
+                        Acesso às plataformas internas sujeito
+                        à disponibilidade da rede e dos servidores corporativos.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="footer">
+                <span>
+                    © <span class="year"></span>
+                    <strong>SEGTRÔNICA</strong>
+                    · Todos os direitos reservados.
+                </span>
+
+                <span>
+                    GIOP · GESTÃO INTELIGENTE DE OPERAÇÕES
+                </span>
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+// ==========================================
+// GIOP - JAVASCRIPT
+// ==========================================
+
+// Ano automático
+document.querySelectorAll('.year').forEach(element => {
+    element.textContent = new Date().getFullYear();
+});
+
+// Data atual
+const now = new Date();
+
+const formattedDate = now.toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+});
+
+document.getElementById('currentDate').textContent =
+    formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
+document.getElementById('heroDate').textContent =
+    now.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+
+
+// Elementos
+const cards = [...document.querySelectorAll('.app-card')];
+const navItems = document.querySelectorAll('.nav-item');
+const filterButtons = document.querySelectorAll('.filter-btn');
+const searchInput = document.getElementById('searchInput');
+const emptyState = document.getElementById('emptyState');
+const appCount = document.getElementById('appCount');
+
+const breadcrumbTitle = document.getElementById('breadcrumbTitle');
+const sectionDescription = document.getElementById('sectionDescription');
+
+
+// Estado atual
+let currentFilter = 'all';
+
+
+// Filtrar aplicações
+function filterApplications() {
+
+    const term = searchInput.value
+        .toLowerCase()
+        .trim();
+
+    let visible = 0;
+
+    cards.forEach(card => {
+
+        const category = card.dataset.category;
+
+        const searchableText = (
+            card.innerText + ' ' +
+            card.dataset.search
+        ).toLowerCase();
+
+        const matchesCategory =
+            currentFilter === 'all' ||
+            category === currentFilter;
+
+        const matchesSearch =
+            searchableText.includes(term);
+
+        const shouldShow =
+            matchesCategory && matchesSearch;
+
+        card.classList.toggle('hidden', !shouldShow);
+
+        if (shouldShow) visible++;
+
+    });
+
+    emptyState.classList.toggle('show', visible === 0);
+
+    appCount.textContent =
+        `${String(visible).padStart(2,'0')} APLICAÇÕES`;
+
+}
+
+
+// Alterar categoria
+function setFilter(filter) {
+
+    currentFilter = filter;
+
+    navItems.forEach(item => {
+        item.classList.toggle(
+            'active',
+            item.dataset.filter === filter
+        );
+    });
+
+    filterButtons.forEach(button => {
+        button.classList.toggle(
+            'active',
+            button.dataset.filter === filter
+        );
+    });
+
+    const titles = {
+        all: 'Visão geral',
+        operacoes: 'Operações',
+        administrativo: 'Administrativo',
+        financeiro: 'Financeiro',
+        documentacao: 'Documentação'
+    };
+
+    const descriptions = {
+        all: 'Todas as ferramentas corporativas em um único ambiente.',
+        operacoes: 'Plataformas de acompanhamento e gestão operacional.',
+        administrativo: 'Soluções de gestão e processos administrativos.',
+        financeiro: 'Ferramentas de análise e gestão financeira.',
+        documentacao: 'Central de documentação e informações técnicas.'
+    };
+
+    breadcrumbTitle.textContent = titles[filter];
+
+    sectionDescription.textContent =
+        descriptions[filter];
+
+    filterApplications();
+
+}
+
+
+// Eventos da sidebar
+navItems.forEach(item => {
+
+    item.addEventListener('click', () => {
+
+        setFilter(item.dataset.filter);
+
+        document.querySelector('.section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
+    });
+
+});
+
+
+// Eventos dos filtros
+filterButtons.forEach(button => {
+
+    button.addEventListener('click', () => {
+        setFilter(button.dataset.filter);
+    });
+
+});
+
+
+// Pesquisa
+searchInput.addEventListener('input', filterApplications);
+
+
+// Inicialização
+filterApplications();
+
+if (window.lucide) {
+    lucide.createIcons();
+}
+
+console.log('GIOP | Portal Executivo iniciado.');
+
+</script>
+
 </body>
 </html>
